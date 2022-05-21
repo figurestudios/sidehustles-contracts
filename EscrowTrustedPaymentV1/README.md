@@ -2,7 +2,7 @@
 
 > EscrowTrustedPaymentV1 is the first `sidehustles` Solidity work contract where two parties (worker and requestor) are both secured by having an escrow overlooking their contract and deliverables.
 
-## Inner workings
+## Inner workings of [EscrowTrustedPaymentV1](https://github.com/figurestudios/sidehustles-contracts/blob/main/EscrowTrustedPaymentV1/contracts/EscrowTrustedPaymentV1.sol)
 
 1) Multiple addresses; requestor, worker, and escrow, are defined.
 

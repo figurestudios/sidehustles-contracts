@@ -7,22 +7,34 @@ contract EscrowTrustedPaymentV1 {
    
    uint escrowThreshodl;     // how many of the escrow addesses that must accept or decline a dispute
 
-   // TODO: ADD DATA FIELDS AND FUNCTIONS FOR:
-   // 
-   // 1) 34 BYTE PUBLIC KEY FOR THE WORK DESCRIPTON, UPLOADED BY THE REQUESTOR, WHICH LEADS TO:
-   //    1.1) JSON-FORMATTED DESCRIPTION OF, FOR EXAMPLE, BROADCASTED MESSAGES (CHAT); THE WORK; WHAT THE WORKER MUST DO; HOW THE ESCROW CAN VERIFY; WITHIN WHICH TIMEFRAME THE WORKER MUST COMPLETE THE TASK; PART-DELIVERABLES; ETC
-   //    1.2) (OPTIONAL) REQUIRED ENVIRONMENT FILES
-   //    1.3) (OPTIONAL) HIGHLY TECHNICAL & DETAILED DESCRIPTION OF THE JOB
-   //    (1.(4-∞) ADDITIONAL FILES)
-   // 
-   // 2) 64 BYTE PUBLIC KEY FOR THE WORKER'S WORK FILES, UPLOADED BY THE WORKER, WHICH LEADS TO:
-   //    2.1) JSON-FORMATTED MESSAGE/DETAILS REGARDING THE JOB (E.G. HOW COMPLETE IT IS (INCL. MENTIONING THAT THE WORK IS DONE AND THAT THEY WANT TO GET PAID OUT), ANY QUESTIONS, ETC)
-   //    2.2) WORK FILES
+   bytes requestorData;      // 34 byte skylink which leads to:
+                             //    1) JSON-formatted description of, for example, broadcasted messages (chat); the work requirements; how the escrow can verify; within which timeframe the worker must complete the task; part-deliverables; ETC
+                             //    2) (OPTIONAL) environment files
+                             //    3) (OPTIONAL) technical description of the task
+                             //    4-∞) additional files
+   
+   bytes workerData;         // 64 byte registry public key which leads to:
+                             //    1) JSON-formatted messages/detailes regarding the job (e.g. how complete it is (incl. if they request payment for being finished); any questions regarding the job)
+                             //    2) work files/result
+
+                             // 64 bytes can be split up as 2x bytes32 fields, which can be used for optimization later on
 
    constructor() public{
       requestorAddress = 0x0000000000000000000000000000000000000000;
-      workerAddress = 0x0000000000000000000000000000000000000000;
-      escrow = 0x0000000000000000000000000000000000000000;
+      workerAddress    = 0x0000000000000000000000000000000000000000;
+      escrow           = 0x0000000000000000000000000000000000000000;
+      requestorData    = "default_requestor_value";
+      workerData       = "default_worker_value";
+   }
+
+   function getWorkerData() public view returns(string memory) {
+      string memory _workerData = string(workerData);
+      return _workerData;
+   }
+
+   function getRequestorData() public view returns(string memory) {
+      string memory _requestorData = string(requestorData);
+      return _requestorData;
    }
    
    // TODO: MAKE FUNCTION THAT LETS THE REQUESTOR CHANGE ESCROW FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS

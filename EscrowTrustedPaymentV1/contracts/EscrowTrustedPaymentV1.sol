@@ -19,12 +19,17 @@ contract EscrowTrustedPaymentV1 {
 
                              // 64 bytes can be split up as 2x bytes32 fields, which can be used for optimization later on
 
+   bool workerDispute;       // opened by the worker in case of wanting their money paid out
+   bool requestorDispute;    // opened by the requestor in case of wanting their money back
+
    constructor() public{
       requestorAddress = 0x0000000000000000000000000000000000000000;
-      workerAddress    = 0x0000000000000000000000000000000000000000;
+      workerAddress    = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
       escrow           = 0x0000000000000000000000000000000000000000;
       requestorData    = "default_requestor_value";
       workerData       = "default_worker_value";
+      workerDispute    = false;
+      requestorDispute = false;
    }
 
    function getWorkerData() public view returns(string memory) {
@@ -55,9 +60,23 @@ contract EscrowTrustedPaymentV1 {
        return false;
    }
 
-   // TODO: MAKE FUNCTION THAT LETS THE WORKER START A DISPUTE, I.E., ASKING ESCROW TO OVERLOOK THE FINISHED WORK BY CHANGING A STATE BOOL
+   // LETS THE WORKER START A DISPUTE, I.E., ASKING ESCROW TO OVERLOOK THE FINISHED WORK BY CHANGING A STATE BOOL
+   function startWorkerDispute() public returns (bool) {
+       if (msg.sender == workerAddress) {
+           workerDispute = true;
+           return true;
+       }
+       return false;
+   }
 
-   // TODO: MAKE FUNCTION THAT LETS THE REQUESTOR START A DISPUTE, I.E., ASKING ESCROW TO GIVE BACK THE REQUESTORS' FUNDS BY CHANGING A STATE BOOL
+   // LETS THE REQUESTOR START A DISPUTE, I.E., ASKING ESCROW TO GIVE BACK THE REQUESTORS' FUNDS BY CHANGING A STATE BOOL
+   function startRequestorDispute() public returns (bool) {
+       if (msg.sender == requestorAddress) {
+           requestorDispute = true;
+           return true;
+       }
+       return false;
+   }
 
    // TODO: MAKE FUNCTION THAT LETS ESCROW PAY THE WORKER / REQUESTOR BASED ON DISPUTES
 

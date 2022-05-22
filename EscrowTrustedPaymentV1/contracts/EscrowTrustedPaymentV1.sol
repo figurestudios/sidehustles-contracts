@@ -37,7 +37,13 @@ contract EscrowTrustedPaymentV1 {
       return _requestorData;
    }
    
-   // TODO: MAKE FUNCTION THAT LETS THE REQUESTOR CHANGE ESCROW FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS
+   // LETS THE REQUESTOR CHANGE ESCROW FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS
+   function changeEscrowAddress(address newEscrow) public returns (address) {
+       if (msg.sender == requestorAddress && workerAddress == 0x0000000000000000000000000000000000000000) {
+           escrow = newEscrow;
+       }
+       return escrow;
+   }
 
    // TODO: MAKE FUNCTION THAT LETS THE REQUESTOR CHANGE THE WORK DESCRIPTION FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS
 

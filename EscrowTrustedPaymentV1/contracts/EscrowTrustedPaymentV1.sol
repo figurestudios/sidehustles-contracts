@@ -38,14 +38,22 @@ contract EscrowTrustedPaymentV1 {
    }
    
    // LETS THE REQUESTOR CHANGE ESCROW FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS
-   function changeEscrowAddress(address newEscrow) public returns (address) {
+   function changeEscrowAddress(address _escrow) public returns (bool) {
        if (msg.sender == requestorAddress && workerAddress == 0x0000000000000000000000000000000000000000) {
-           escrow = newEscrow;
+           escrow = _escrow;
+           return true;
        }
-       return escrow;
+       return false;
    }
 
-   // TODO: MAKE FUNCTION THAT LETS THE REQUESTOR CHANGE THE WORK DESCRIPTION FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS
+   // LETS THE REQUESTOR CHANGE THE WORK DESCRIPTION FOR AS LONG AS THERE IS ONLY A DEFAULT VALUE FOR THE WORKER ADDRESS
+   function changeWorkDescription(string memory _requestorData) public returns (bool) {
+       if (msg.sender == requestorAddress && workerAddress == 0x0000000000000000000000000000000000000000) {
+           requestorData = bytes(_requestorData);
+           return true;
+       }
+       return false;
+   }
 
    // TODO: MAKE FUNCTION THAT LETS THE WORKER START A DISPUTE, I.E., ASKING ESCROW TO OVERLOOK THE FINISHED WORK BY CHANGING A STATE BOOL
 

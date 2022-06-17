@@ -24,7 +24,7 @@ contract EscrowTrustedPaymentV1 {
 
    constructor() public{
       requestorAddress = 0x0000000000000000000000000000000000000000;
-      workerAddress    = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+      workerAddress    = 0x0000000000000000000000000000000000000000;
       escrow           = 0x0000000000000000000000000000000000000000;
       requestorData    = "default_requestor_value";
       workerData       = "default_worker_value";

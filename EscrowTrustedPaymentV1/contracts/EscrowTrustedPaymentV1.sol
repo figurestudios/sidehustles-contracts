@@ -24,12 +24,9 @@ contract EscrowTrustedPaymentV1 {
 
    constructor() public{
       requestorAddress = 0x0000000000000000000000000000000000000000;
-      workerAddress    = 0x0000000000000000000000000000000000000000;
       escrow           = 0x0000000000000000000000000000000000000000;
       requestorData    = "default_requestor_value";
       workerData       = "default_worker_value";
-      workerDispute    = false;
-      requestorDispute = false;
    }
 
    function getWorkerData() public view returns(string memory) {
